@@ -15,10 +15,6 @@ const movieSchema = new Schema ({
         type: String,
         trim: true
     },
-    director: {
-        type:String,
-        trim: true
-    },
     actors:{
         type: String,
         trim: true

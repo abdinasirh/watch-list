@@ -20,10 +20,6 @@ const userSchema = new Schema(
             required: true,
             minlength: 6
         },
-        savedMovies: [{
-            type: Schema.Types.ObjectId,
-            ref: 'Movie'
-        }],
         moviesSeen: [{
             type: Schema.Types.ObjectId,
             ref: 'Movie'
