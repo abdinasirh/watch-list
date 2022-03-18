@@ -9,33 +9,33 @@ import {
 } from "react-bootstrap";
 
 import Auth from "../utils/auth";
-import { searchGoogleBooks } from "../utils/API";
-import { saveBookIds, getSavedBookIds } from "../utils/localStorage";
-import { SAVE_BOOK } from "../utils/mutations";
+import { searchMovies } from "../utils/API";
+import { saveMovieIds, getSavedMovieIds } from "../utils/localStorage";
+import { SAVE_MOVIE } from "../utils/mutations";
 import { useMutation } from "@apollo/react-hooks";
 
-const SearchBooks = () => {
-  // create state for holding returned google api data
-  const [searchedBooks, setSearchedBooks] = useState([]);
+const SearchMovies = () => {
+  // create state for holding returned movie api data
+  const [searchedMovies, setSearchedMovies] = useState([]);
   // create state for holding our search field data
   const [searchInput, setSearchInput] = useState("");
 
-  // create state to hold saved bookId values
-  const [savedBookIds, setSavedBookIds] = useState(getSavedBookIds());
+  // create state to hold saved movieId values
+  const [savedMovieIds, setSavedMovieIds] = useState(getSavedMovieIds());
 
-  // set up useEffect hook to save `savedBookIds` list to localStorage on component unmount
+  // set up useEffect hook to save `savedMovieIds` list to localStorage on component unmount
   // learn more here: https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup
   useEffect(() => {
     // let isMounted = true; // note this flag denote mount status
     return () => {
-      saveBookIds(savedBookIds);
+      saveMovieIds(savedMovieIds);
       // isMounted = false;
     };
   });
 
-  const [saveBook, { Error }] = useMutation(SAVE_BOOK);
+  const [saveMovie, { Error }] = useMutation(SAVE_MOVIE);
 
-  // create method to search for books and set state on form submit
+  // create method to search for movies and set state on form submit
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
@@ -44,7 +44,7 @@ const SearchBooks = () => {
     }
 
     try {
-      const response = await searchGoogleBooks(searchInput);
+      const response = await searchMovies(searchInput);
 
       if (!response.ok) {
         throw new Error("something went wrong!");
@@ -52,25 +52,25 @@ const SearchBooks = () => {
 
       const { items } = await response.json();
 
-      const bookData = items.map((book) => ({
-        bookId: book.id,
-        authors: book.volumeInfo.authors || ["No author to display"],
-        title: book.volumeInfo.title,
-        description: book.volumeInfo.description,
-        image: book.volumeInfo.imageLinks?.thumbnail || "",
+      const movieData = items.map((movie) => ({
+        movieId: movie.id,
+        overview: movie.overview,
+        title: movie.title,
+        release_date: movie.release_date,
+        poster_path: movie.poster_path.thumbnail || "",
       }));
 
-      setSearchedBooks(bookData);
+      setSearchedMovies(movieData);
       setSearchInput("");
     } catch (err) {
       console.error(err);
     }
   };
 
-  // create function to handle saving a book to our database
-  const handleSaveBook = async (bookId) => {
-    // find the book in `searchedBooks` state by the matching id
-    const bookToSave = searchedBooks.find((book) => book.bookId === bookId);
+  // create function to handle saving a movie to our database
+  const handleSaveMovie = async (movieId) => {
+    
+    const movieToSave = searchedMovies.find((movie) => movie.movieId === movieId);
 
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
@@ -80,9 +80,9 @@ const SearchBooks = () => {
     }
 
     try {
-      const response = await saveBook({
+      const response = await saveMovie({
         variables: {
-          input: bookToSave,
+          input: movieToSave,
         },
       });
 
@@ -91,7 +91,7 @@ const SearchBooks = () => {
       }
 
       // if book successfully saves to user's account, save book id to state
-      setSavedBookIds([...savedBookIds, bookToSave.bookId]);
+      setSavedMovieIds([...savedMovieIds, movieToSave.movieId]);
     } catch (err) {
       console.error(err);
     }
@@ -125,33 +125,33 @@ const SearchBooks = () => {
 
       <Container>
         <CardColumns>
-          {searchedBooks.map((book) => {
+          {searchedMovies.map((movie) => {
             return (
-              <Card key={book.bookId} border="dark">
-                {book.image ? (
+              <Card key={movie.movieId} border="dark">
+                {movie.poster_path ? (
                   <Card.Img
-                    src={book.image}
-                    alt={`The cover for ${book.title}`}
+                    src={movie.poster_path}
+                    alt={`The cover for ${movie.title}`}
                     variant="top"
                   />
                 ) : null}
                 <Card.Body>
-                  <Card.Title>{book.title}</Card.Title>
-                  <p className="small">Authors: {book.authors}</p>
-                  <Card.Text>{book.description}</Card.Text>
+                  <Card.Title>{movie.title}</Card.Title>
+                  <p className="small">Release Date: {movie.release_date}</p>
+                  <Card.Text>{movie.overview}</Card.Text>
                   {Auth.loggedIn() && (
                     <Button
-                      disabled={savedBookIds?.some(
-                        (savedBookId) => savedBookId === book.bookId
+                      disabled={savedMovieIds?.some(
+                        (savedMovieId) => savedMovieId === movie.movieId
                       )}
                       className="btn-block btn-info"
-                      onClick={() => handleSaveBook(book.bookId)}
+                      onClick={() => handleSaveMovie(movie.movieId)}
                     >
-                      {savedBookIds?.some(
-                        (savedBookId) => savedBookId === book.bookId
+                      {savedMovieIds?.some(
+                        (savedMovieId) => savedMovieId === movie.movieId
                       )
-                        ? "This book has already been saved!"
-                        : "Save this Book!"}
+                        ? "This movie has already been added to the list!"
+                        : "Save this Movie!"}
                     </Button>
                   )}
                 </Card.Body>
@@ -164,4 +164,4 @@ const SearchBooks = () => {
   );
 };
 
-export default SearchBooks;
+export default SearchMovies;
