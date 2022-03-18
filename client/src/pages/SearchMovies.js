@@ -50,14 +50,14 @@ const SearchMovies = () => {
         throw new Error("something went wrong!");
       }
 
-      const { items } = await response.json();
+      const { results } = await response.json();
 
-      const movieData = items.map((movie) => ({
+      const movieData = results.map((movie) => ({
         movieId: movie.id,
         overview: movie.overview,
         title: movie.title,
         release_date: movie.release_date,
-        poster_path: movie.poster_path.thumbnail || "",
+        poster_path: "https://image.tmdb.org/t/p/original/" + movie.poster_path || "",
       }));
 
       setSearchedMovies(movieData);
