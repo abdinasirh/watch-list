@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/TavianJD/watch-list#readme",
   "dependencies": {
-    "graphql": "^16.3.0"
+    "graphql": "^16.3.0",
+    "whatwg-url": "^11.0.0"
   }
 }
