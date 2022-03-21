@@ -63,7 +63,7 @@ const SavedMovies = () => {
             : "You have no saved movies!"}
         </h2>
         <CardColumns>
-          {userData.savedMovie.map((movie) => {
+          {userData.savedMovies.map((movie) => {
             return (
               <Card key={movie.movieId} border="dark">
                 {movie.poster_path ? (

@@ -90,7 +90,7 @@ const SearchMovies = () => {
         throw new Error("something went wrong!");
       }
 
-      // if book successfully saves to user's account, save book id to state
+      // if movie successfully saves to user's account, save movie id to state
       setSavedMovieIds([...savedMovieIds, movieToSave.movieId]);
     } catch (err) {
       console.error(err);
@@ -100,7 +100,7 @@ const SearchMovies = () => {
   return (
     <>
         <Container  className=" my-auto mt-1 text-warning bg-dark">
-          <h1>Search for Movies!</h1>
+          <h1>Find Your Favorite Movies!</h1>
           <Form onSubmit={handleFormSubmit}>
             <Form.Row>
               <Col xs={12} md={8}>
