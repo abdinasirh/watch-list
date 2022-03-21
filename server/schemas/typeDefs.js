@@ -2,8 +2,8 @@ const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
   type Movie {
-    overview: [String]
-    movieId: String!
+    overview: String
+    movieId: Int!
     poster_path: String
     release_date: String
     title: String!
@@ -20,8 +20,8 @@ const typeDefs = gql`
     user: User
   }
   input SavedMovieInput {
-    overview: [String]
-    movieId: String!
+    overview: String
+    movieId: Int!
     poster_path: String
     release_date: String
     title: String
