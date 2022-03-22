@@ -28,10 +28,6 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
 }
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/watch-list', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
