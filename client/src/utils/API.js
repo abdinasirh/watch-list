@@ -35,3 +35,7 @@ export const saveMovie = (movieData, token) => {
 export const searchMovies = (query) => {
     return fetch(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_TMDB_API}&query=${query}`);
   };
+
+  export const searchHomePage = (movie_id) => {
+    return fetch(`https://api.themoviedb.org/3/movie/${movie_id}?api_key=${process.env.REACT_APP_TMDB_API}`);
+  };
