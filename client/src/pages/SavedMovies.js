@@ -24,14 +24,17 @@ const SavedMovies = () => {
     if (!token) {
       return false;
     }
+    // try {
+    //   const response = await removeMovie({
+    //     variables: { movieId: movieId },
+    //   });
     try {
-      const response = await removeMovie({
-        variables: { movieId: movieId },
-      });
+      const response = await removeMovie(movieId, token);
 
       if (!response) {
         throw new Error("something went wrong!");
       }
+
       removeMovieId(movieId);
     } catch (err) {
       console.error(error);
