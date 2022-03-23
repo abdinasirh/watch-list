@@ -14,8 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/abdinasirh/watch-list.git"
-    
+    "url": "git+https://github.com/TavianJD/watch-list.git"
   },
   "keywords": [
     "watch",
@@ -24,7 +23,7 @@
   "authors": "Abdinasir, Tavian, Christopher",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/abdinasirh/watch-list/issues"
+    "url": "https://github.com/TavianJD/watch-list/issues"
   },
-  "homepage": "https://github.com/abdinasirh/watch-list#readme"
+  "homepage": "https://github.com/TavianJD/watch-list#readme"
 }
