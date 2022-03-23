@@ -15,6 +15,7 @@ export const GET_ME = gql`
         poster_path
         release_date
         title
+        homepage
       }
     }
   }

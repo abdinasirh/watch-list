@@ -38,6 +38,7 @@ export const SAVE_MOVIE = gql`
         poster_path
         release_date
         title
+        homepage
       }
     }
   }
@@ -55,6 +56,7 @@ export const REMOVE_MOVIE = gql`
         poster_path
         release_date
         title
+        homepage
       }
     }
   }

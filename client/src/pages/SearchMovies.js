@@ -9,7 +9,7 @@ import {
 } from "react-bootstrap";
 
 import Auth from "../utils/auth";
-import { searchMovies, searchHomePage } from "../utils/API";
+import { searchMovies } from "../utils/API";
 import { saveMovieIds, getSavedMovieIds } from "../utils/localStorage";
 import { SAVE_MOVIE } from "../utils/mutations";
 import { useMutation } from "@apollo/react-hooks";
@@ -62,7 +62,7 @@ const SearchMovies = () => {
         title: movie.title,
         release_date: movie.release_date,
         poster_path: "https://image.tmdb.org/t/p/original/" + movie.poster_path || "",
-        homepage: getHomePage(movie.id)
+        // homepage: getHomePage(movie.id)
       }));
     
 
@@ -73,22 +73,22 @@ const SearchMovies = () => {
     }
   };
 
-  const getHomePage =async (movieId) => {
-    try {
-      const response = await searchHomePage(movieId);
+  // const getHomePage =async (movieId) => {
+  //   try {
+  //     const response = await searchHomePage(movieId);
 
-      if (!response.ok) {
-        throw new Error("something went wrong!");
-      }
+  //     if (!response.ok) {
+  //       throw new Error("something went wrong!");
+  //     }
 
-      const { results } = await response.json();
-      return results;
+  //     const { results } = await response.json();
+  //     return results;
     
-  } catch (err) {
-    console.error(err);
-  }
+  // } catch (err) {
+  //   console.error(err);
+  // }
 
-  }
+  // }
 
   // create function to handle saving a movie to our database
   const handleSaveMovie = async (movieId) => {
@@ -178,11 +178,11 @@ const SearchMovies = () => {
                     </Button>
 
                   )}
-                  <a href={movie.homepage}>
+                  {/* <a href={movie.homepage}>
                   <Button className=" mt-2 btn-block btn-info">
                     Watch Trailer
                   </Button>
-                  </a>
+                  </a> */}
                   
                 </Card.Body>
               </Card>
